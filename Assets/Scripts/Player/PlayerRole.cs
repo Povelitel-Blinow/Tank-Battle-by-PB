@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerInteract))]
 public class PlayerRole : MonoBehaviour
 {
     [SerializeField] private CrewMemberRole[] _role;
@@ -7,8 +8,11 @@ public class PlayerRole : MonoBehaviour
     [SerializeField] private GameObject _tank;
     [SerializeField] private int _currentRole = 0;
 
+    private PlayerInteract _playerInteract;
+
     private void Start()
     {
+        _playerInteract = GetComponent<PlayerInteract>();
         if (_currentRole >= _role.Length)
             _currentRole = 0;
         ChangRole(_currentRole);
@@ -23,6 +27,10 @@ public class PlayerRole : MonoBehaviour
         }
     }
 
-    public void CrewWork(float state) { _role[_currentRole].CrewWork(state); }
+    public void CrewWork(float state) 
+    { 
+        if(!_playerInteract.GetIsInteracting())
+            _role[_currentRole].CrewWork(state); 
+    }
     public void CrewWork(Vector2 rotation) { _role[_currentRole].CrewWork(rotation); }
 }

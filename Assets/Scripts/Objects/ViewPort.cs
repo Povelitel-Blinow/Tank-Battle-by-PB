@@ -1,11 +1,13 @@
-    using UnityEngine;
+using UnityEngine;
 
 public class ViewPort : InteractableObject
 {
    [Header("viewPort")]
    [SerializeField] private GameObject _viewPort;
-   public override void Act(Camera cam)
+   [SerializeField] private bool _isAimViewPort = false;
+
+   public override void Act(GameObject cam)
    {
-       _action.DoIt(cam, _viewPort);
+       _action.DoIt(cam, _viewPort, _isAimViewPort);
    }
 }

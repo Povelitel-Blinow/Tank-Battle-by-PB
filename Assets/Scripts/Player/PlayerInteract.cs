@@ -47,10 +47,7 @@ public class PlayerInteract : MonoBehaviour
             }
         }
         else
-        {
-            
-            _currentSelectedObj?.Act(_cam);
-        }
+            _currentSelectedObj?.Act(_cam.gameObject);
     }
 
     public void InteractClick()
@@ -58,13 +55,18 @@ public class PlayerInteract : MonoBehaviour
         if (!_isInteracting)
         {
             _currentSelectedObj?.Act();
-            _currentSelectedObj?.Act(_cam);
+            _currentSelectedObj?.Act(_cam.gameObject);
             _currentSelectedObj?.OnSelectionExit();
         }
         else
-            _cameraBehaviour.CamInViewPortExit();
+            _cameraBehaviour.CamViewPortExit();
 
         _isInteracting = !_isInteracting;
+    }
+
+    public bool GetIsInteracting()
+    {
+        return _isInteracting;
     }
 
 }
