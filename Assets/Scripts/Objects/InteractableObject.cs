@@ -28,7 +28,7 @@ public class InteractableObject : MonoBehaviour
         _outline.OutlineWidth = 0f;
     }
 
-    public virtual void Act() { }
-    public virtual void Act(Camera cam) { }
-    public virtual void Act(GameObject cam) { }
+    public virtual void Interact() { }
+    public virtual void Interact(GameObject shellPos, GameObject cannon) { }
+    public virtual void Interact(GameObject cam) { }
 }

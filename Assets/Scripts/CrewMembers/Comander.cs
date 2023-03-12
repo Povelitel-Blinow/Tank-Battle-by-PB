@@ -23,6 +23,12 @@ public class Comander : CrewMemberRole
         }
     }
 
+    public override void StandUp()
+    {
+        _seat.position -= new Vector3(0, _currentLifting, 0);
+        _currentLifting = 0f;
+    }
+
     private void OnEnable()
     {
         _currentLifting = 0f;

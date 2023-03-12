@@ -12,6 +12,8 @@ public class CrewMemberRole : ScriptableObject
         PlayerSit(player);
     }
 
+    public virtual void StandUp() { }
+
     private void PlayerSit(GameObject player)
     {
         player.transform.position = _seat.transform.position;

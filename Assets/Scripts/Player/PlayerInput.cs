@@ -9,7 +9,7 @@ public class PlayerInput : MonoBehaviour
 
     private InputActions.InTankActions _inTank;
 
-    private PlayerLook _crewMemberLook;
+    private PlayerLook _playerLook;
     private PlayerInteract _playerInteract;
     private PlayerRole _playerRole;
 
@@ -17,14 +17,14 @@ public class PlayerInput : MonoBehaviour
     {
         _inputActions = new InputActions();
         _inTank = _inputActions.InTank;
-        _crewMemberLook = GetComponent<PlayerLook>();
+        _playerLook = GetComponent<PlayerLook>();
         _playerInteract = GetComponent<PlayerInteract>();
         _playerRole = GetComponent<PlayerRole>();
     }
 
     private void Update()
     {
-        _crewMemberLook.Look(_inTank.Look.ReadValue<Vector2>());
+        _playerLook.Look(_inTank.Look.ReadValue<Vector2>());
 
         if (_inTank.Interact.WasReleasedThisFrame())
             _playerInteract.InteractClick();
@@ -33,10 +33,14 @@ public class PlayerInput : MonoBehaviour
 
         _playerRole.CrewWork(_inTank.GetUp.ReadValue<Vector2>().y);
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Alpha1))
             _playerRole.ChangRole(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKey(KeyCode.Alpha2))
             _playerRole.ChangRole(1);
+        else if (Input.GetKey(KeyCode.Alpha3))
+            _playerRole.ChangRole(2);
+        else
+            _playerRole.ChangRole(-1);
     }
 
     private void OnEnable()

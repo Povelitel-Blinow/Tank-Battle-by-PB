@@ -47,15 +47,16 @@ public class PlayerInteract : MonoBehaviour
             }
         }
         else
-            _currentSelectedObj?.Act(_cam.gameObject);
+            _currentSelectedObj?.Interact(_cam.gameObject);
     }
 
     public void InteractClick()
     {
         if (!_isInteracting)
         {
-            _currentSelectedObj?.Act();
-            _currentSelectedObj?.Act(_cam.gameObject);
+            _currentSelectedObj?.Interact();
+            _currentSelectedObj?.Interact(_cam.gameObject);
+
             _currentSelectedObj?.OnSelectionExit();
         }
         else

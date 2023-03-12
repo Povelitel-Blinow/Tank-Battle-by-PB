@@ -4,7 +4,7 @@ public class MachineGun : InteractableObject
 {
     [SerializeField] private GameObject _stand;
     [SerializeField] private float _maxHorizontalRotation;
-    public override void Act(GameObject cam)
+    public override void Interact(GameObject cam)
     {
         transform.localRotation = Quaternion.Euler(cam.transform.localRotation.eulerAngles.x, 0, 0);
         float yRot = cam.transform.parent.localRotation.eulerAngles.y;
