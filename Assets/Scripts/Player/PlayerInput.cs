@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour
         _playerLook.Look(_inTank.Look.ReadValue<Vector2>());
 
         if (_inTank.Interact.WasReleasedThisFrame())
-            _playerInteract.InteractClick();
+            _playerInteract.Click();
 
         _playerRole.CrewWork(_inTank.Aiming.ReadValue<Vector2>());
 
