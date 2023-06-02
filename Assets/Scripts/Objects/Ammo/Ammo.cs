@@ -1,7 +1,6 @@
 public class Ammo : TakeableObject
 {
-    public void Loaded()
-    {
-        Destroy(gameObject);
-    }
+    public virtual void Loaded() { }
+
+    public virtual void Shoot() { }
 }

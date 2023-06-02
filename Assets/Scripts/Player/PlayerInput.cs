@@ -22,6 +22,9 @@ public class PlayerInput : Player
     public delegate void OnChangeRole(int role);
     public event OnChangeRole onChangeRole;
 
+    public delegate void OnShoot();
+    public event OnShoot onShoot;
+
     private int _crewRole = -1;
 
     private void Awake()
@@ -39,6 +42,7 @@ public class PlayerInput : Player
 
         _playerRole = GetComponent<PlayerRole>();
         onChangeRole += _playerRole.ChangRole;
+        onShoot += _playerInteract.TryShoot;
     }
 
     private void Update()
@@ -52,7 +56,10 @@ public class PlayerInput : Player
         onChangeRole(_crewRole);
 
         _playerRole.CrewWork(_inTank.Aiming.ReadValue<Vector2>());
-        _playerRole.CrewWork(_inTank.CommanderGetUp.ReadValue<Vector2>().y);   
+        _playerRole.CrewWork(_inTank.CommanderGetUp.ReadValue<Vector2>().y);
+
+        if (_inTank.Shoot.IsPressed())
+            _playerInteract.TryShoot();
     }
 
     private int CheckCrewRole()
@@ -77,6 +84,7 @@ public class PlayerInput : Player
         onLook -= _playerLook.Look;
         onInteract -= _playerInteract.Click;
         onChangeRole -= _playerRole.ChangRole;
+        onShoot -= _playerInteract.TryShoot;
 
         _inTank.Disable();
     }

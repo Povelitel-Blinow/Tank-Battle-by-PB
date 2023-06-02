@@ -35,7 +35,8 @@ public class PlayerInteract : Player
 
     private void Update()
     {
-        if (!_isInteracting)
+
+        if (_isInteracting == false)
         {
             RaycastHit hitinfo;
             if (Physics.Raycast(_ray, out hitinfo, _distance, _mask))
@@ -55,7 +56,9 @@ public class PlayerInteract : Player
             }
         }
         else
-            _currentInteractedObject.Interact(_cam.gameObject);
+        {
+            _currentInteractedObject.Interact(_cameraBehaviour);
+        }
     }
 
     public void Click()
@@ -76,7 +79,6 @@ public class PlayerInteract : Player
                 _cameraBehaviour.CamViewPortExit();
             _isInteracting = false;
         }
-        
     }
 
     private void TryInteract()
@@ -86,7 +88,7 @@ public class PlayerInteract : Player
             _currentSelectedObject.TryGetComponent(out _currentInteractedObject);
             if (_currentInteractedObject != null)
             {
-                _currentInteractedObject.Interact(_cam.gameObject);
+                _currentInteractedObject.Interact(_cameraBehaviour);
                 _isInteracting = true;
             }
         }
@@ -107,7 +109,6 @@ public class PlayerInteract : Player
 
     private void TryLoad()
     {
-        Debug.Log(1);
         ILoadable loadable = _currentSelectedObject.GetComponent<ILoadable>();
         if (loadable != null && _currentTakenObject != null)
         {
@@ -115,6 +116,19 @@ public class PlayerInteract : Player
             if (ammo != null)
             {
                 loadable.Load(ammo);
+                _isCarrying = false;
+            }
+        }
+    }
+
+    public void TryShoot()
+    {
+        if (_currentInteractedObject != null)
+        {
+            _currentInteractedObject.TryGetComponent(out IShootable shootable);
+            if (shootable != null)
+            {
+                shootable.Shoot();
             }
         }
     }

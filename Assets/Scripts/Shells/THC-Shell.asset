@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: THC-Shell
   m_EditorClassIdentifier: 
   _name: 
+  _force: 5000

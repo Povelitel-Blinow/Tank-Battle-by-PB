@@ -6,7 +6,7 @@ public class PlayerRole : Player
 {
     [SerializeField] private CrewMemberRole[] _role;
     [SerializeField] private Transform[] _seat;
-    [SerializeField] private GameObject _tank;
+    [SerializeField] private Tank _tank;
     [SerializeField] private int _currentRole = 0;
     [SerializeField] private float _changeRoleTime;
 
@@ -60,7 +60,7 @@ public class PlayerRole : Player
 
     private void TakeASeat()
     {
-        _role[_currentRole].TakeASeat(gameObject, _seat[_currentRole], _tank.GetComponent<Tank>());
+        _role[_currentRole].TakeASeat(gameObject, _seat[_currentRole], _tank);
     }
 
     private void StandUp()
@@ -68,10 +68,11 @@ public class PlayerRole : Player
         _role[_currentRole].StandUp();
     }
 
-    public void CrewWork(float state) 
+    public void CrewWork(float comanderGeuUp) 
     { 
         if(!_playerInteract.GetIsInteracting())
-            _role[_currentRole].CrewWork(state); 
+            _role[_currentRole].CrewWork(comanderGeuUp); 
     }
+
     public void CrewWork(Vector2 rotation) { _role[_currentRole].CrewWork(rotation); }
 }

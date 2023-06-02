@@ -73,10 +73,19 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetUp"",
+                    ""name"": ""CommanderGetUp"",
                     ""type"": ""PassThrough"",
                     ""id"": ""2db93bfb-bdf7-4402-8a50-33b59abf09bd"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""b39aa1b3-d373-4242-973a-58481d94ace4"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -189,7 +198,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetUp"",
+                    ""action"": ""CommanderGetUp"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -200,7 +209,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetUp"",
+                    ""action"": ""CommanderGetUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -211,9 +220,20 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetUp"",
+                    ""action"": ""CommanderGetUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9679d378-0514-4d47-892b-ce4e3d42e48e"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,7 +247,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_InTank_ChangeSeats = m_InTank.FindAction("ChangeSeats", throwIfNotFound: true);
         m_InTank_Special = m_InTank.FindAction("Special", throwIfNotFound: true);
         m_InTank_Aiming = m_InTank.FindAction("Aiming", throwIfNotFound: true);
-        m_InTank_GetUp = m_InTank.FindAction("GetUp", throwIfNotFound: true);
+        m_InTank_CommanderGetUp = m_InTank.FindAction("CommanderGetUp", throwIfNotFound: true);
+        m_InTank_Shoot = m_InTank.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -292,7 +313,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_InTank_ChangeSeats;
     private readonly InputAction m_InTank_Special;
     private readonly InputAction m_InTank_Aiming;
-    private readonly InputAction m_InTank_GetUp;
+    private readonly InputAction m_InTank_CommanderGetUp;
+    private readonly InputAction m_InTank_Shoot;
     public struct InTankActions
     {
         private @InputActions m_Wrapper;
@@ -302,7 +324,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @ChangeSeats => m_Wrapper.m_InTank_ChangeSeats;
         public InputAction @Special => m_Wrapper.m_InTank_Special;
         public InputAction @Aiming => m_Wrapper.m_InTank_Aiming;
-        public InputAction CommanderGetUp => m_Wrapper.m_InTank_GetUp;
+        public InputAction @CommanderGetUp => m_Wrapper.m_InTank_CommanderGetUp;
+        public InputAction @Shoot => m_Wrapper.m_InTank_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_InTank; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -327,9 +350,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Aiming.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnAiming;
                 @Aiming.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnAiming;
                 @Aiming.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnAiming;
-                CommanderGetUp.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
-                CommanderGetUp.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
-                CommanderGetUp.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
+                @CommanderGetUp.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnCommanderGetUp;
+                @CommanderGetUp.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnCommanderGetUp;
+                @CommanderGetUp.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnCommanderGetUp;
+                @Shoot.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_InTankActionsCallbackInterface = instance;
             if (instance != null)
@@ -349,9 +375,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Aiming.started += instance.OnAiming;
                 @Aiming.performed += instance.OnAiming;
                 @Aiming.canceled += instance.OnAiming;
-                CommanderGetUp.started += instance.OnGetUp;
-                CommanderGetUp.performed += instance.OnGetUp;
-                CommanderGetUp.canceled += instance.OnGetUp;
+                @CommanderGetUp.started += instance.OnCommanderGetUp;
+                @CommanderGetUp.performed += instance.OnCommanderGetUp;
+                @CommanderGetUp.canceled += instance.OnCommanderGetUp;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -363,6 +392,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnChangeSeats(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnAiming(InputAction.CallbackContext context);
-        void OnGetUp(InputAction.CallbackContext context);
+        void OnCommanderGetUp(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

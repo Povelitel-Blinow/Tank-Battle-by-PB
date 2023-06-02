@@ -4,7 +4,7 @@ public class Turret : MonoBehaviour
 {
     [SerializeField] private GameObject _horisontalRotationHandle;
     [SerializeField] private GameObject _verticalRotationHandle;
-    [SerializeField] private GameObject _cannon;
+    [SerializeField] private Cannon _cannon;
     [SerializeField] private GameObject _aimerViewPort;
 
     [SerializeField] private float _handleRotSpeed;
@@ -13,6 +13,8 @@ public class Turret : MonoBehaviour
 
     [SerializeField] private float _cannonRotUp;
     [SerializeField] private float _cannonRotDown;
+
+    private Cannon _cannonScript;
 
     private void Start()
     {

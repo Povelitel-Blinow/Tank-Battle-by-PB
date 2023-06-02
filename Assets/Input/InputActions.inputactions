@@ -51,10 +51,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GetUp",
+                    "name": "CommanderGetUp",
                     "type": "PassThrough",
                     "id": "2db93bfb-bdf7-4402-8a50-33b59abf09bd",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "b39aa1b3-d373-4242-973a-58481d94ace4",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -167,7 +176,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetUp",
+                    "action": "CommanderGetUp",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -178,7 +187,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetUp",
+                    "action": "CommanderGetUp",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -189,9 +198,20 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetUp",
+                    "action": "CommanderGetUp",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "9679d378-0514-4d47-892b-ce4e3d42e48e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
