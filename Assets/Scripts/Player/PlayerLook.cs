@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerLook : MonoBehaviour
+public class PlayerLook : Player
 {
     [SerializeField] private Camera _cam;
 
@@ -8,8 +8,8 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private float _maxRotUp = 30f;
     [SerializeField] private float _maxRotDown = -30f;
 
-    [SerializeField] private float _xSens = 15f;
-    [SerializeField] private float _ySens = 15f;
+    [SerializeField] private float _xSens = 1f;
+    [SerializeField] private float _ySens = 1f;
 
 
     private float xRot;
@@ -26,8 +26,8 @@ public class PlayerLook : MonoBehaviour
     {
         if (!_cameraBehaviour.GetIsFrozen())
         {
-            float mouseX = input.x;
-            float mouseY = input.y;
+            float mouseX = input.x/5;
+            float mouseY = input.y/5;
 
             xRot -= (mouseY * Time.deltaTime) * _ySens;
             xRot = Mathf.Clamp(xRot, _maxRotDown, _maxRotUp);

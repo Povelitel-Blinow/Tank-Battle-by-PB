@@ -1,19 +1,11 @@
 using UnityEngine;
-
-public class Cannon : InteractableObject
+public class Cannon : SelectableObject, ILoadable
 {
-    private TakeableObject _currentShell;
+    private CannonAmmo _currentShell;
 
-    public override bool Interact(TakeableObject shell)
+    public void Load(Ammo ammo)
     {
-        if(_currentShell == null && shell != null)
-        {
-            _currentShell = shell;
-
-            Destroy(shell.gameObject);
-
-            return true;
-        }
-        return false;
+        Debug.Log("Shell");
+        ammo.Loaded();
     }
 }

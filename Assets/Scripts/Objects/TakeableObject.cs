@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SelectableObject))]
-public class TakeableObject : InteractableObject
+public class TakeableObject : SelectableObject
 {
     protected const int SelectableLayer = 6;
     protected const int TakenLayer = 7;
@@ -10,6 +9,13 @@ public class TakeableObject : InteractableObject
     {
         gameObject.layer = SelectableLayer;
     }
+    
+    public virtual void Take(Transform pos)
+    {
+        transform.position = pos.position;
+        transform.rotation = pos.rotation;
+        transform.parent = pos;
 
-    public override void Interact(Transform pos) { }
+        gameObject.layer = TakenLayer;
+    }
 }

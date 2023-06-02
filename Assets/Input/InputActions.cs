@@ -302,7 +302,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @ChangeSeats => m_Wrapper.m_InTank_ChangeSeats;
         public InputAction @Special => m_Wrapper.m_InTank_Special;
         public InputAction @Aiming => m_Wrapper.m_InTank_Aiming;
-        public InputAction @GetUp => m_Wrapper.m_InTank_GetUp;
+        public InputAction CommanderGetUp => m_Wrapper.m_InTank_GetUp;
         public InputActionMap Get() { return m_Wrapper.m_InTank; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -327,9 +327,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Aiming.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnAiming;
                 @Aiming.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnAiming;
                 @Aiming.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnAiming;
-                @GetUp.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
-                @GetUp.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
-                @GetUp.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
+                CommanderGetUp.started -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
+                CommanderGetUp.performed -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
+                CommanderGetUp.canceled -= m_Wrapper.m_InTankActionsCallbackInterface.OnGetUp;
             }
             m_Wrapper.m_InTankActionsCallbackInterface = instance;
             if (instance != null)
@@ -349,9 +349,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Aiming.started += instance.OnAiming;
                 @Aiming.performed += instance.OnAiming;
                 @Aiming.canceled += instance.OnAiming;
-                @GetUp.started += instance.OnGetUp;
-                @GetUp.performed += instance.OnGetUp;
-                @GetUp.canceled += instance.OnGetUp;
+                CommanderGetUp.started += instance.OnGetUp;
+                CommanderGetUp.performed += instance.OnGetUp;
+                CommanderGetUp.canceled += instance.OnGetUp;
             }
         }
     }

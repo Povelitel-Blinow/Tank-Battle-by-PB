@@ -1,9 +1,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class Shell : TakeableObject
+public class Shell : Ammo
 {
-    [SerializeField] private ShellType _shellType;
     [SerializeField] private GameObject _head;
     private BoxCollider _boxCollider;
 
@@ -12,13 +11,9 @@ public class Shell : TakeableObject
         _boxCollider = GetComponent<BoxCollider>();
     }
 
-    public override void Interact(Transform shellPos)
+    public override void Take(Transform pos)
     {
-        transform.position = shellPos.position;
-        transform.rotation = shellPos.rotation;
-        transform.parent = shellPos;
-
-        gameObject.layer = TakenLayer;
+        base.Take(pos);
         _head.layer = TakenLayer;
 
         _boxCollider.enabled = false;

@@ -1421,8 +1421,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2147483647
   _distance: 1
+  _takePos: {fileID: 2100207751}
 --- !u!114 &1567627969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,10 +1499,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1567627963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97391ba9c89874c4face4c4f41ff3fab, type: 3}
+  m_Script: {fileID: 11500000, guid: 469fc9134f3cd884ba2ebfa1c291953d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _takePos: {fileID: 2100207751}
 --- !u!1 &1805076598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2496,7 +2496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3856526400876089753}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.008000001, y: -0.022197366, z: 0.008956121}
+  m_LocalPosition: {x: 0.008000001, y: -0.01899, z: 0.00896}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4849,7 +4849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7578131007685050834
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4979,7 +4979,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outlineWidth: 3
-  _action: {fileID: 0}
   _shellType: {fileID: 11400000, guid: 87fe862f12f2bc840853a4fa1c3b168e, type: 2}
   _head: {fileID: 6907858581727298449}
 --- !u!1 &7664019190877986125
@@ -5359,7 +5358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outlineWidth: 3
-  _action: {fileID: 0}
   _shellType: {fileID: 0}
   _head: {fileID: 0}
 --- !u!114 &8058976126637503683
@@ -5742,7 +5740,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outlineWidth: 3
-  _action: {fileID: 0}
   _shellType: {fileID: 0}
   _head: {fileID: 0}
 --- !u!114 &9124956773773608817

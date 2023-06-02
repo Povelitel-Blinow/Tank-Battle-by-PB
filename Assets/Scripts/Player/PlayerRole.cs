@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerInteract))]
 [RequireComponent(typeof(ChangeRoleUI))]
-public class PlayerRole : MonoBehaviour
+public class PlayerRole : Player
 {
     [SerializeField] private CrewMemberRole[] _role;
     [SerializeField] private Transform[] _seat;

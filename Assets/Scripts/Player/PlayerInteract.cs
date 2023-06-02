@@ -1,27 +1,29 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerLook))]
-[RequireComponent(typeof(PlayerTake))]
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteract : Player
 {
     [SerializeField] private LayerMask _mask;
     [SerializeField] private float _distance;
+    [SerializeField] private Transform _takePos;
+
     private PlayerLook _playerLook;
     private Camera _cam;
     private Ray _ray;
 
-    private InteractableObject _currentInteractactedObject;
+    private SelectableObject _currentSelectedObject;
+    private InteractableObject _currentInteractedObject;
 
     private CameraBehaviour _cameraBehaviour;
 
-    private PlayerTake _playerTake;
+    private TakeableObject _currentTakenObject;
+    private bool _isCarrying;
 
     private bool _isInteracting = false;
     
     private void Start()
     {
         _playerLook = GetComponent<PlayerLook>();
-        _playerTake = GetComponent<PlayerTake>();
         _cam = _playerLook.GetCam();
         _cameraBehaviour = _cam.GetComponent<CameraBehaviour>();
     }
@@ -38,62 +40,82 @@ public class PlayerInteract : MonoBehaviour
             RaycastHit hitinfo;
             if (Physics.Raycast(_ray, out hitinfo, _distance, _mask))
             {
-                hitinfo.collider.TryGetComponent(out InteractableObject obj);
-                if (_currentInteractactedObject != obj)
+                hitinfo.collider.TryGetComponent(out SelectableObject obj);
+                if (_currentSelectedObject != obj)
                 {
-                    _currentInteractactedObject?.OnSelectionExit();
-                    _currentInteractactedObject = obj;
-                    _currentInteractactedObject?.OnSelection();
-                }
-
-                if(hitinfo.collider.TryGetComponent(out Cannon cannon))
-                {
-                    TakeableObject tmp = _playerTake.LayDown();
-                    if (!cannon.Interact(tmp))
-                    {
-                        _playerTake.TakeObject(tmp);
-                        cannon.OnSelectionExit();
-                        Debug.Log(1);
-                    }
+                    _currentSelectedObject?.OnSelectionExit();
+                    _currentSelectedObject = obj;
+                    _currentSelectedObject?.OnSelection();
                 }
             }
             else
             {
-                _currentInteractactedObject?.OnSelectionExit();
-                _currentInteractactedObject = null;
+                _currentSelectedObject?.OnSelectionExit();
+                _currentSelectedObject = null;
             }
         }
         else
-            _currentInteractactedObject?.Interact(_cam.gameObject);
+            _currentInteractedObject.Interact(_cam.gameObject);
     }
 
     public void Click()
     {
-
-        if (!_isInteracting)
+        if (_isInteracting == false)
         {
-            TryInteract();
-            TryTake();
-            _currentInteractactedObject?.OnSelectionExit();
+            if (_currentSelectedObject != null)
+            {
+                TryTake();
+                TryInteract();
+                TryLoad();
+                _currentSelectedObject?.OnSelectionExit();
+            }
         }
         else
         {
-            _cameraBehaviour.CamViewPortExit();
+            if (_currentInteractedObject.GetComponent<ViewPort>() != null)
+                _cameraBehaviour.CamViewPortExit();
+            _isInteracting = false;
         }
-        _isInteracting = !_isInteracting;
+        
     }
 
     private void TryInteract()
     {
-        _currentInteractactedObject?.Interact();
-        _currentInteractactedObject?.Interact(_cam.gameObject);
+        if (_isInteracting == false)
+        {
+            _currentSelectedObject.TryGetComponent(out _currentInteractedObject);
+            if (_currentInteractedObject != null)
+            {
+                _currentInteractedObject.Interact(_cam.gameObject);
+                _isInteracting = true;
+            }
+        }
     }
 
     private void TryTake()
     {
-        if (!_playerTake.GetIsCarrying())
+        if(_isCarrying == false)
         {
-            _playerTake?.TakeObject(_currentInteractactedObject?.GetComponent<TakeableObject>());
+            _currentSelectedObject.TryGetComponent(out _currentTakenObject);
+            if (_currentTakenObject != null)
+            {
+                _currentTakenObject.Take(_takePos);
+                _isCarrying = true;
+            }
+        }
+    }
+
+    private void TryLoad()
+    {
+        Debug.Log(1);
+        ILoadable loadable = _currentSelectedObject.GetComponent<ILoadable>();
+        if (loadable != null && _currentTakenObject != null)
+        {
+            Ammo ammo = _currentTakenObject.GetComponent<Ammo>();
+            if (ammo != null)
+            {
+                loadable.Load(ammo);
+            }
         }
     }
 
